@@ -1,0 +1,21 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: sc-product
+  cloud:
+    consul:
+      host: 192.168.99.105
+      port: 8500
+      discovery:
+        enabled: true
+        instance-id: sc-product
+  datasource:
+    username: root
+    password: root123
+    url: jdbc:mysql://www.liaowei.net.cn:3306/sc-db?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+swagger:
+  enabled: true
+  base-package: cn.net.liaowei.sc.product
