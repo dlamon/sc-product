@@ -18,6 +18,15 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo, Intege
     List<ProductInfo> findByStatus(Short status);
 
     /**
+     * 通过状态分页查询所有产品信息(测试使用)
+     * @param status 产品状态
+     * @param pageable 分页参数
+     * @return 产品信息
+     */
+    @Query("select productName from ProductInfo where status = :status")
+    Page<String> findByStatusQuery(@Param("status") Short status, Pageable pageable);
+
+    /**
      * 通过状态分页查询所有产品信息
      * @param status 产品状态
      * @param pageable 分页参数
@@ -26,11 +35,10 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo, Intege
     Page<ProductInfo> findByStatus(Short status, Pageable pageable);
 
     /**
-     * 通过状态分页查询所有产品信息(测试使用)
-     * @param status 产品状态
+     * 通过产品ID列表查询ID所属的产品信息列表
+     * @param productIdList 产品ID列表
      * @param pageable 分页参数
-     * @return 产品信息
+     * @return 产品信息列表
      */
-    @Query("select productName from ProductInfo where status = :status")
-    List<String> findByStatusQuery(@Param("status") Short status, Pageable pageable);
+    Page<ProductInfo> findByProductIdIn(List<Integer> productIdList, Pageable pageable);
 }

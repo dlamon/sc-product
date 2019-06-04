@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -31,7 +32,7 @@ public class ProductInfoRepositoryTest {
 
     @Test
     public void findByStatusQuery() {
-        List<String> resultList = productInfoRepository.findByStatusQuery(Short.valueOf("0"), PageRequest.of(0, 3, Sort.Direction.DESC, "productId"));
+        Page<String> resultList = productInfoRepository.findByStatusQuery(Short.valueOf("0"), PageRequest.of(0, 3, Sort.Direction.DESC, "productId"));
         Assert.assertNotNull(resultList);
     }
 
@@ -42,5 +43,11 @@ public class ProductInfoRepositoryTest {
         productInfo.setCategoryType(Short.valueOf("1"));
         List<ProductInfo> productInfoList = productInfoRepository.findAll(Example.of(productInfo));
         Assert.assertNotNull(productInfoList);
+    }
+
+    @Test
+    public void findByProductIdIn() {
+        Page<ProductInfo> productInfoList = productInfoRepository.findByProductIdIn(Arrays.asList(1, 3, 5, 7), null);
+        Assert.assertEquals(4, productInfoList.getTotalPages());
     }
 }
