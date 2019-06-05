@@ -11,8 +11,8 @@ import java.util.List;
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
     /**
      * 通过类别编号列表查询编号列表对应的类别信息列表
-     * @param categoryIdList 类别编号列表
+     * @param categoryTypeList 类别编号列表
      * @return 类别信息列表
      */
-    List<ProductCategory> findByCategoryIdIn(List<Integer> categoryIdList);
+    List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
 }

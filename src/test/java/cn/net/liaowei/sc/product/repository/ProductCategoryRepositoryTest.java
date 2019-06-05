@@ -19,7 +19,7 @@ public class ProductCategoryRepositoryTest {
 
     @Test
     public void findByCategoryIdIn() {
-        List<ProductCategory> productCategoryList = productCategoryRepository.findByCategoryIdIn(Arrays.asList(1, 3));
+        List<ProductCategory> productCategoryList = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(1, 3));
         Assert.assertEquals(2, productCategoryList.size());
     }
 }
