@@ -31,19 +31,19 @@ public class ProductInfo {
     private Float rate;
 
     @ApiModelProperty("开始时间")
-    private Date sellBeginTime;
+    private Date saleBeginTime;
 
     @ApiModelProperty("结束时间")
-    private Date sellEndTime;
+    private Date saleEndTime;
 
     @ApiModelProperty("最小购买金额")
-    private BigDecimal minPurchaseAmt;
+    private BigDecimal minBuyAmt;
 
     @ApiModelProperty("最大购买金额")
-    private BigDecimal maxPurchaseAmt;
+    private BigDecimal maxBuyAmt;
 
-    @ApiModelProperty("产品总限额")
-    private BigDecimal totalLimitAmt;
+    @ApiModelProperty("剩余额度")
+    private BigDecimal remainQuota;
 
     @ApiModelProperty("产品描述")
     private String description;

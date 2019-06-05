@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.service;
 
-import cn.net.liaowei.sc.product.common.DecreaseTotalLimitAmtInput;
+import cn.net.liaowei.sc.product.common.DecreaseQuotaInput;
 import cn.net.liaowei.sc.product.domain.ProductInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +28,9 @@ public interface ProductService {
 
     /**
      * 扣减商品额度
-     * @param decreaseTotalLimitAmtInputList 购买商品列表
+     * @param decreaseQuotaInputList 购买商品列表
      * @return 剩余的商品额度
      */
-    public List<ProductInfo> decreaseTotalLimitAmt(List<DecreaseTotalLimitAmtInput> decreaseTotalLimitAmtInputList);
+    public List<ProductInfo> decreaseTotalLimitAmt(List<DecreaseQuotaInput> decreaseQuotaInputList);
 
 }

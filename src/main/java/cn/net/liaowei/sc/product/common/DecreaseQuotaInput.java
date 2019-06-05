@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author LiaoWei
  */
 @Data
-public class DecreaseTotalLimitAmtInput {
+public class DecreaseQuotaInput {
     private Integer productId;
     private BigDecimal amount;
 }
