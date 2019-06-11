@@ -31,6 +31,6 @@ public interface ProductService {
      * @param decreaseQuotaInputList 购买商品列表
      * @return 剩余的商品额度
      */
-    public List<ProductInfo> decreaseTotalLimitAmt(List<DecreaseQuotaInput> decreaseQuotaInputList);
+    public void decreaseQuota(List<DecreaseQuotaInput> decreaseQuotaInputList);
 
 }

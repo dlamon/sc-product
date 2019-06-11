@@ -9,16 +9,17 @@ import cn.net.liaowei.sc.product.repository.ProductInfoRepository;
 import cn.net.liaowei.sc.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author LiaoWei
  */
+@Service
 public class ProductServiceImpl implements ProductService {
     private ProductInfoRepository productInfoRepository;
 
@@ -38,8 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ProductInfo> decreaseTotalLimitAmt(List<DecreaseQuotaInput> decreaseQuotaInputList) {
-        List<ProductInfo> productInfoList = new ArrayList<>();
+    public void decreaseQuota(List<DecreaseQuotaInput> decreaseQuotaInputList) {
         for (DecreaseQuotaInput decreaseQuotaInput : decreaseQuotaInputList) {
             // 判断产品是否存在
             Optional<ProductInfo> productInfoOptional = productInfoRepository.findById(decreaseQuotaInput.getProductId());
@@ -81,9 +81,6 @@ public class ProductServiceImpl implements ProductService {
             BigDecimal remainQuota = productInfo.getRemainQuota().subtract(decreaseQuotaInput.getAmount());
             productInfo.setRemainQuota(remainQuota);
             productInfoRepository.save(productInfo);
-            productInfoList.add(productInfo);
         }
-
-        return productInfoList;
     }
 }

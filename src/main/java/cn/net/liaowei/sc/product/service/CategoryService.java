@@ -13,5 +13,5 @@ public interface CategoryService {
      * @param categoryTypeList 类别类型列表
      * @return 类别信息列表
      */
-    public List<ProductCategory> listCategoryIn(List<Integer> categoryTypeList);
+    public List<ProductCategory> listCategoryIn(List<Short> categoryTypeList);
 }
