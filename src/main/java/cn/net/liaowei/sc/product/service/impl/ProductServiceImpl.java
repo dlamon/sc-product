@@ -54,33 +54,40 @@ public class ProductServiceImpl implements ProductService {
             }
 
             // 判断是否大于开始时间
-            if (System.currentTimeMillis() < productInfoDO.getSaleBeginTime().getTime()) {
+            if (productInfoDO.getSaleBeginTime() != null &&
+                    System.currentTimeMillis() < productInfoDO.getSaleBeginTime().getTime()) {
                 throw new SCException(ErrorEnum.PRODUCT_SALE_NOT_STARTED);
             }
 
             // 判断是否小于结束时间
-            if (System.currentTimeMillis() > productInfoDO.getSaleEndTime().getTime()) {
+            if (productInfoDO.getSaleEndTime() != null &&
+                    System.currentTimeMillis() > productInfoDO.getSaleEndTime().getTime()) {
                 throw new SCException(ErrorEnum.PRODUCT_SALE_EXCEEDED);
             }
             // 判断是否大于最小购买金额
-            if (decreaseQuotaDTO.getAmount().compareTo(productInfoDO.getMinBuyAmt()) < 0) {
+            if (productInfoDO.getMinBuyAmt() != null &&
+                    decreaseQuotaDTO.getBuyAmount().compareTo(productInfoDO.getMinBuyAmt()) < 0) {
                 throw new SCException(ErrorEnum.PRODUCT_LESS_MINI_AMT);
             }
 
             // 判断是否小于最大购买金额
-            if (decreaseQuotaDTO.getAmount().compareTo(productInfoDO.getMaxBuyAmt()) > 0) {
+            if (productInfoDO.getMaxBuyAmt() != null &&
+                    decreaseQuotaDTO.getBuyAmount().compareTo(productInfoDO.getMaxBuyAmt()) > 0) {
                 throw new SCException(ErrorEnum.PRODUCT_GREATER_MAX_AMT);
             }
 
             // 判断剩余额度是否充足
-            if (decreaseQuotaDTO.getAmount().compareTo(productInfoDO.getRemainQuota()) > 0) {
+            if (productInfoDO.getRemainQuota() != null &&
+                    decreaseQuotaDTO.getBuyAmount().compareTo(productInfoDO.getRemainQuota()) > 0) {
                 throw new SCException(ErrorEnum.PRODUCT_REMAIN_NOT_ENOUGH);
             }
 
-            // 扣除购买额度
-            BigDecimal remainQuota = productInfoDO.getRemainQuota().subtract(decreaseQuotaDTO.getAmount());
-            productInfoDO.setRemainQuota(remainQuota);
-            productInfoRepository.save(productInfoDO);
+            if (productInfoDO.getRemainQuota() != null) {
+                // 扣除购买额度
+                BigDecimal remainQuota = productInfoDO.getRemainQuota().subtract(decreaseQuotaDTO.getBuyAmount());
+                productInfoDO.setRemainQuota(remainQuota);
+                productInfoRepository.save(productInfoDO);
+            }
         }
     }
 }
