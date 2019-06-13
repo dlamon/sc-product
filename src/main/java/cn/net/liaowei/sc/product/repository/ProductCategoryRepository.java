@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.repository;
 
-import cn.net.liaowei.sc.product.domain.ProductCategory;
+import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * @author LiaoWei
  */
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
+public interface ProductCategoryRepository extends JpaRepository<ProductCategoryDO, Integer> {
     /**
      * 通过类别编号列表查询编号列表对应的类别信息列表
      * @param categoryTypeList 类别编号列表
      * @return 类别信息列表
      */
-    List<ProductCategory> findByCategoryTypeIn(List<Short> categoryTypeList);
+    List<ProductCategoryDO> findByCategoryTypeIn(List<Short> categoryTypeList);
 }

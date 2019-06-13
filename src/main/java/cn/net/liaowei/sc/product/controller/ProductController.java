@@ -1,15 +1,15 @@
 package cn.net.liaowei.sc.product.controller;
 
-import cn.net.liaowei.sc.product.common.DecreaseQuotaInput;
-import cn.net.liaowei.sc.product.common.ProductInfoOutput;
-import cn.net.liaowei.sc.product.domain.ProductCategory;
-import cn.net.liaowei.sc.product.domain.ProductInfo;
+import cn.net.liaowei.sc.product.domain.dto.DecreaseQuotaDTO;
+import cn.net.liaowei.sc.product.domain.dto.ProductInfoDTO;
+import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
+import cn.net.liaowei.sc.product.domain.dos.ProductInfoDO;
 import cn.net.liaowei.sc.product.service.CategoryService;
 import cn.net.liaowei.sc.product.service.ProductService;
 import cn.net.liaowei.sc.product.util.ResultUtil;
-import cn.net.liaowei.sc.product.vo.ProductInfoVO;
-import cn.net.liaowei.sc.product.vo.ProductVO;
-import cn.net.liaowei.sc.product.vo.ResultVO;
+import cn.net.liaowei.sc.product.domain.vo.ProductInfoVO;
+import cn.net.liaowei.sc.product.domain.vo.ProductVO;
+import cn.net.liaowei.sc.product.domain.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -41,24 +41,24 @@ public class ProductController {
     @ApiOperation("获取在售产品列表")
     public ResultVO<List<ProductVO>> list() {
         // 获取所有在售的产品列表
-        Page<ProductInfo> productInfoPage = productService.listAllOnSaleProduct(null);
+        Page<ProductInfoDO> productInfoDOPage = productService.listAllOnSaleProduct(null);
 
         // 获取产品对应的类别列表
-        List<Short> categoryTypeList = productInfoPage.stream().map(ProductInfo::getCategoryType).collect(Collectors.toList());
+        List<Short> categoryTypeList = productInfoDOPage.stream().map(ProductInfoDO::getCategoryType).collect(Collectors.toList());
 
         // 获取产品对应的类别信息
-        List<ProductCategory> productCategoryList = categoryService.listCategoryIn(categoryTypeList);
+        List<ProductCategoryDO> productCategoryDOList = categoryService.listCategoryIn(categoryTypeList);
 
         // 构造返回数据
         List<ProductVO> productVOList = new ArrayList<>();
-        for (ProductCategory productCategory : productCategoryList) {
+        for (ProductCategoryDO productCategoryDO : productCategoryDOList) {
             ProductVO productVO = new ProductVO();
-            BeanUtils.copyProperties(productCategory, productVO);
+            BeanUtils.copyProperties(productCategoryDO, productVO);
             List<ProductInfoVO> productInfoVOList = new ArrayList<>();
-            for (ProductInfo productInfo : productInfoPage) {
-                if ( productInfo.getCategoryType().equals(productCategory.getCategoryType()) ) {
+            for (ProductInfoDO productInfoDO : productInfoDOPage) {
+                if ( productInfoDO.getCategoryType().equals(productCategoryDO.getCategoryType()) ) {
                     ProductInfoVO productInfoVO = new ProductInfoVO();
-                    BeanUtils.copyProperties(productInfo, productInfoVO);
+                    BeanUtils.copyProperties(productInfoDO, productInfoVO);
                     productInfoVOList.add(productInfoVO);
                 }
             }
@@ -72,10 +72,10 @@ public class ProductController {
 
     @ApiOperation("通过产品Id查询产品列表(仅供内部调用)")
     @GetMapping("/list/ids")
-    List<ProductInfoOutput> listByProductId(List<Integer> productIdList) {
-        Page<ProductInfo> productInfoPage = productService.listProductIn(productIdList, null);
-        return productInfoPage.stream().map(e -> {
-            ProductInfoOutput output = new ProductInfoOutput();
+    List<ProductInfoDTO> listByProductId(List<Integer> productIdList) {
+        Page<ProductInfoDO> productInfoDOPage = productService.listProductIn(productIdList, null);
+        return productInfoDOPage.stream().map(e -> {
+            ProductInfoDTO output = new ProductInfoDTO();
             BeanUtils.copyProperties(e, output);
             return output;
         }).collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class ProductController {
 
     @ApiOperation("扣减产品可用额度(仅供内部调用)")
     @PostMapping("/decrease/quota")
-    public void decreaseQuota(@RequestBody List<DecreaseQuotaInput> decreaseQuotaInputList) {
+    public void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList) {
         productService.decreaseQuota(decreaseQuotaInputList);
     }
 }

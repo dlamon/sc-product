@@ -1,7 +1,7 @@
 package cn.net.liaowei.sc.product.service;
 
-import cn.net.liaowei.sc.product.common.DecreaseQuotaInput;
-import cn.net.liaowei.sc.product.domain.ProductInfo;
+import cn.net.liaowei.sc.product.domain.dto.DecreaseQuotaDTO;
+import cn.net.liaowei.sc.product.domain.dos.ProductInfoDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +16,7 @@ public interface ProductService {
      * @param pageable 分页参数
      * @return 在售商品列表
      */
-    public Page<ProductInfo> listAllOnSaleProduct(Pageable pageable);
+    Page<ProductInfoDO> listAllOnSaleProduct(Pageable pageable);
 
     /**
      * 查询特定商品ID的商品列表
@@ -24,13 +24,13 @@ public interface ProductService {
      * @param pageable 分页参数
      * @return 商品列表
      */
-    public Page<ProductInfo> listProductIn(List<Integer> productIdList, Pageable pageable);
+    Page<ProductInfoDO> listProductIn(List<Integer> productIdList, Pageable pageable);
 
     /**
      * 扣减商品额度
      * @param decreaseQuotaInputList 购买商品列表
      * @return 剩余的商品额度
      */
-    public void decreaseQuota(List<DecreaseQuotaInput> decreaseQuotaInputList);
+    void decreaseQuota(List<DecreaseQuotaDTO> decreaseQuotaInputList);
 
 }

@@ -2,7 +2,7 @@ package cn.net.liaowei.sc.product.exception;
 
 import cn.net.liaowei.sc.product.enums.ErrorEnum;
 import cn.net.liaowei.sc.product.util.ResultUtil;
-import cn.net.liaowei.sc.product.vo.ResultVO;
+import cn.net.liaowei.sc.product.domain.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;

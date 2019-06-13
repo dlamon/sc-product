@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.repository;
 
-import cn.net.liaowei.sc.product.domain.ProductInfo;
+import cn.net.liaowei.sc.product.domain.dos.ProductInfoDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,11 +25,11 @@ public class ProductInfoRepositoryTest {
 
     @Test
     public void findByStatus() {
-        List<ProductInfo> productInfoList = productInfoRepository.findByStatus(Short.valueOf("0"));
-        Assert.assertNotNull(productInfoList);
+        List<ProductInfoDO> productInfoDOList = productInfoRepository.findByStatus(Short.valueOf("0"));
+        Assert.assertNotNull(productInfoDOList);
 
-        Page<ProductInfo> productInfoPage = productInfoRepository.findByStatus(Short.valueOf("0"), PageRequest.of(0, 3, Sort.Direction.DESC, "productId"));
-        Assert.assertNotNull(productInfoPage);
+        Page<ProductInfoDO> productInfoDOPage = productInfoRepository.findByStatus(Short.valueOf("0"), PageRequest.of(0, 3, Sort.Direction.DESC, "productId"));
+        Assert.assertNotNull(productInfoDOPage);
     }
 
     @Test
@@ -40,16 +40,16 @@ public class ProductInfoRepositoryTest {
 
     @Test
     public void findAllByExample() {
-        ProductInfo productInfo = new ProductInfo();
-        productInfo.setStatus(Short.valueOf("0"));
-        productInfo.setCategoryType(Short.valueOf("1"));
-        List<ProductInfo> productInfoList = productInfoRepository.findAll(Example.of(productInfo));
-        Assert.assertNotNull(productInfoList);
+        ProductInfoDO productInfoDO = new ProductInfoDO();
+        productInfoDO.setStatus(Short.valueOf("0"));
+        productInfoDO.setCategoryType(Short.valueOf("1"));
+        List<ProductInfoDO> productInfoDOList = productInfoRepository.findAll(Example.of(productInfoDO));
+        Assert.assertNotNull(productInfoDOList);
     }
 
     @Test
     public void findByProductIdIn() {
-        Page<ProductInfo> productInfoList = productInfoRepository.findByProductIdIn(Arrays.asList(1, 3, 5, 7), null);
-        Assert.assertEquals(4, productInfoList.getTotalPages());
+        Page<ProductInfoDO> productInfoDOPage = productInfoRepository.findByProductIdIn(Arrays.asList(1, 3, 5, 7), null);
+        Assert.assertEquals(4, productInfoDOPage.getContent().size());
     }
 }

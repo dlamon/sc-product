@@ -1,4 +1,4 @@
-package cn.net.liaowei.sc.product.vo;
+package cn.net.liaowei.sc.product.domain.vo;
 
 import lombok.Data;
 

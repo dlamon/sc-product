@@ -1,7 +1,7 @@
 package cn.net.liaowei.sc.product.util;
 
 
-import cn.net.liaowei.sc.product.vo.ResultVO;
+import cn.net.liaowei.sc.product.domain.vo.ResultVO;
 
 /**
  * @author LiaoWei

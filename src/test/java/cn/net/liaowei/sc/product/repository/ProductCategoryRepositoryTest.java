@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.repository;
 
-import cn.net.liaowei.sc.product.domain.ProductCategory;
+import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ public class ProductCategoryRepositoryTest {
 
     @Test
     public void findByCategoryIdIn() {
-        List<ProductCategory> productCategoryList = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(new Short("1"), new Short("3")));
-        Assert.assertEquals(2, productCategoryList.size());
+        List<ProductCategoryDO> productCategoryDOList = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(new Short("1"), new Short("3")));
+        Assert.assertEquals(2, productCategoryDOList.size());
     }
 }

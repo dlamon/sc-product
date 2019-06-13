@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.service.impl;
 
-import cn.net.liaowei.sc.product.domain.ProductCategory;
+import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
 import cn.net.liaowei.sc.product.repository.ProductCategoryRepository;
 import cn.net.liaowei.sc.product.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<ProductCategory> listCategoryIn(List<Short> categoryTypeList) {
+    public List<ProductCategoryDO> listCategoryIn(List<Short> categoryTypeList) {
         return productCategoryRepository.findByCategoryTypeIn(categoryTypeList);
     }
 }

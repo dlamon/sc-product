@@ -1,6 +1,6 @@
 package cn.net.liaowei.sc.product.service;
 
-import cn.net.liaowei.sc.product.domain.ProductCategory;
+import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface CategoryService {
      * @param categoryTypeList 类别类型列表
      * @return 类别信息列表
      */
-    public List<ProductCategory> listCategoryIn(List<Short> categoryTypeList);
+    List<ProductCategoryDO> listCategoryIn(List<Short> categoryTypeList);
 }

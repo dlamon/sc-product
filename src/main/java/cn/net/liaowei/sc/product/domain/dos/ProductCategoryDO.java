@@ -1,4 +1,4 @@
-package cn.net.liaowei.sc.product.domain;
+package cn.net.liaowei.sc.product.domain.dos;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Date;
 @Data
 @Entity
 @ApiModel(description = "产品类别")
-public class ProductCategory {
+@Table(name="product_category")
+public class ProductCategoryDO {
     @Id
     @ApiModelProperty("类别编号")
     private Integer categoryId;

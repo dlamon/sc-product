@@ -1,16 +1,14 @@
-package cn.net.liaowei.sc.product.common;
+package cn.net.liaowei.sc.product.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * @author LiaoWei
  */
-public class ProductInfoOutput {
-    @Id
+public class ProductInfoDTO {
     @ApiModelProperty("产品编号")
     private Integer productId;
 
