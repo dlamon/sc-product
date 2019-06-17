@@ -3,6 +3,7 @@ package cn.net.liaowei.sc.product.domain.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DecreaseQuotaDTO {
     @ApiModelProperty("产品编号")
     private Integer productId;

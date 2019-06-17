@@ -1,6 +1,7 @@
 package cn.net.liaowei.sc.product.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
 /**
  * @author LiaoWei
  */
+@Data
 public class ProductInfoDTO {
     @ApiModelProperty("产品编号")
     private Integer productId;

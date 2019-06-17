@@ -1,5 +1,6 @@
 package cn.net.liaowei.sc.product.controller;
 
+import cn.net.liaowei.sc.product.client.ProductClient;
 import cn.net.liaowei.sc.product.domain.dto.DecreaseQuotaDTO;
 import cn.net.liaowei.sc.product.domain.dto.ProductInfoDTO;
 import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Api(tags = "/product", description = "产品服务")
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController implements ProductClient {
     private ProductService productService;
     private CategoryService categoryService;
 
@@ -72,7 +73,8 @@ public class ProductController {
 
     @ApiOperation("通过产品Id查询产品列表(仅供内部调用)")
     @GetMapping("/list/ids")
-    List<ProductInfoDTO> listByProductId(List<Integer> productIdList) {
+    @Override
+    public List<ProductInfoDTO> listByProductId(@RequestParam("id") List<Integer> productIdList) {
         Page<ProductInfoDO> productInfoDOPage = productService.listProductIn(productIdList, null);
         return productInfoDOPage.stream().map(e -> {
             ProductInfoDTO output = new ProductInfoDTO();
@@ -83,7 +85,9 @@ public class ProductController {
 
     @ApiOperation("扣减产品可用额度(仅供内部调用)")
     @PostMapping("/decrease/quota")
+    @Override
     public void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList) {
+        // TODO: 抛出异常没有处理
         productService.decreaseQuota(decreaseQuotaInputList);
     }
 }
