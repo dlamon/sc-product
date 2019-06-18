@@ -14,11 +14,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cn.net.liaowei</groupId>
             <artifactId>sc-product-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
-
 </project>
