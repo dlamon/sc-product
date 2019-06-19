@@ -2,6 +2,7 @@ package cn.net.liaowei.sc.product.client;
 
 import cn.net.liaowei.sc.product.common.DecreaseQuotaDTO;
 import cn.net.liaowei.sc.product.common.ProductInfoDTO;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author liaowei
  */
+@FeignClient("sc-product")
 public interface ProductClient {
     /**
      * 通过产品编号列表获取产品信息列表
