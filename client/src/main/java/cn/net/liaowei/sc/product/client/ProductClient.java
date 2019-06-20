@@ -20,13 +20,13 @@ public interface ProductClient {
      * @param productIdList 产品编号列表
      * @return 产品信息列表
      */
-    @GetMapping("/list/ids")
-    List<ProductInfoDTO> listByProductId(@RequestParam("id") List<Integer> productIdList);
+    @GetMapping("/product/list/ids")
+    List<ProductInfoDTO> listByProductId(@RequestParam("id")  List<Integer> productIdList);
 
     /**
      * 扣减可用额度
      * @param decreaseQuotaInputList 需要扣减额度的列表
      */
-    @PostMapping("/decrease/quota")
+    @PostMapping("/product/decrease/quota")
     void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList);
 }
