@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: product
+  cloud:
+    consul:
+      host: 192.168.99.103
+      port: 8500
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      profile: dev
