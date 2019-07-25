@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author liaowei
  */
-@FeignClient("sc-product")
+@FeignClient("product")
 public interface ProductClient {
     /**
      * 通过产品编号列表获取产品信息列表
