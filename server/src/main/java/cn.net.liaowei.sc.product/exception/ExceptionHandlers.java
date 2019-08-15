@@ -1,16 +1,19 @@
 package cn.net.liaowei.sc.product.exception;
 
+import cn.net.liaowei.sc.product.domain.vo.ResultVO;
 import cn.net.liaowei.sc.product.enums.ErrorEnum;
 import cn.net.liaowei.sc.product.util.ResultUtil;
-import cn.net.liaowei.sc.product.domain.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
 /**
@@ -19,15 +22,6 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 @Slf4j
 public class ExceptionHandlers {
-    @ExceptionHandler(value = SCException.class)
-    public <E> ResultVO<E> handleSCException(SCException e) {
-        String code = e.getCode();
-        String message = e.getMessage();
-
-        log.error("{}:{}", code, message, e);
-        return ResultUtil.error(code, message);
-    }
-
     @ExceptionHandler(value = ConstraintViolationException.class)
     public <E> ResultVO<E> handleConstraintViolationException(ConstraintViolationException e) {
         String code = ErrorEnum.PARAM_CHECK_ERROR.getCode();
@@ -48,15 +42,6 @@ public class ExceptionHandlers {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public <E> ResultVO<E> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return this.returnByBindingResult(e);
-    }
-
-    @ExceptionHandler(value = Exception.class)
-    public <E> ResultVO<E> handleException(Exception e) {
-        String code = ErrorEnum.SYSTEM_INTERNAL_ERROR.getCode();
-        String message = ErrorEnum.SYSTEM_INTERNAL_ERROR.getMessage();
-
-        log.error("{}:{}", code, message, e);
-        return ResultUtil.error(code, message);
     }
 
     private <E> ResultVO<E> returnByBindingResult(Exception e) {
@@ -85,5 +70,26 @@ public class ExceptionHandlers {
             log.error("{}:{}", code, message, e);
             return ResultUtil.error(code, message);
         }
+    }
+
+    @ExceptionHandler(SCException.class)
+    @ResponseBody
+    public <E> ResultVO<E> handleSCException(HttpServletResponse response, SCException e) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        String code = e.getCode();
+        String message = e.getMessage();
+
+        log.error("{}:{}", code, message, e);
+        return ResultUtil.error(code, message);
+    }
+
+    @ExceptionHandler(value = Exception.class)
+    public <E> ResultVO<E> handleException(HttpServletResponse response, Exception e) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        String code = ErrorEnum.SYSTEM_INTERNAL_ERROR.getCode();
+        String message = ErrorEnum.SYSTEM_INTERNAL_ERROR.getMessage();
+
+        log.error("{}:{}", code, message, e);
+        return ResultUtil.error(code, message);
     }
 }

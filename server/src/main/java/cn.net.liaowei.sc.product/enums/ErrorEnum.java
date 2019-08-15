@@ -9,7 +9,7 @@ public enum ErrorEnum {
     /**
      * 公共错误码枚举
      */
-    SYSTEM_INTERNAL_ERROR("E000009", "系统内部错误"),
+    SYSTEM_INTERNAL_ERROR("EEEEEEE", "系统内部错误"),
     PARAM_CHECK_ERROR("PRM0001", "参数检查错误"),
     /**
      * 服务错误码枚举

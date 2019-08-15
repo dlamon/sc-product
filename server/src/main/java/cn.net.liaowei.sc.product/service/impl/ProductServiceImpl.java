@@ -40,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void decreaseQuota(List<DecreaseQuotaDTO> decreaseQuotaInputList) {
+//        int n = 4 / 0;
         for (DecreaseQuotaDTO decreaseQuotaDTO : decreaseQuotaInputList) {
             // 判断产品是否存在
             Optional<ProductInfoDO> productInfoOptional = productInfoRepository.findById(decreaseQuotaDTO.getProductId());
