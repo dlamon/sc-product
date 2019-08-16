@@ -87,7 +87,11 @@ public class ProductController implements ProductClient {
     @PostMapping("/decrease/quota")
     @Override
     public void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList) {
-        // TODO: 抛出异常没有处理
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         productService.decreaseQuota(decreaseQuotaInputList);
     }
 }

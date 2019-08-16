@@ -25,5 +25,10 @@
             <groupId>cn.net.liaowei</groupId>
             <artifactId>sc-product-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

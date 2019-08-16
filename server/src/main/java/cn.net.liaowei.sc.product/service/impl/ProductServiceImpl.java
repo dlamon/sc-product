@@ -50,9 +50,9 @@ public class ProductServiceImpl implements ProductService {
             ProductInfoDO productInfoDO = productInfoOptional.get();
 
             // 判断产品是否在售
-            if (productInfoDO.getStatus() != 0) {
-                throw new SCException(ErrorEnum.PRODUCT_SALE_OFF);
-            }
+//            if (productInfoDO.getStatus() != 0) {
+//                throw new SCException(ErrorEnum.PRODUCT_SALE_OFF);
+//            }
 
             // 判断是否大于开始时间
             if (productInfoDO.getSaleBeginTime() != null &&
@@ -61,10 +61,10 @@ public class ProductServiceImpl implements ProductService {
             }
 
             // 判断是否小于结束时间
-            if (productInfoDO.getSaleEndTime() != null &&
-                    System.currentTimeMillis() > productInfoDO.getSaleEndTime().getTime()) {
-                throw new SCException(ErrorEnum.PRODUCT_SALE_EXCEEDED);
-            }
+//            if (productInfoDO.getSaleEndTime() != null &&
+//                    System.currentTimeMillis() > productInfoDO.getSaleEndTime().getTime()) {
+//                throw new SCException(ErrorEnum.PRODUCT_SALE_EXCEEDED);
+//            }
             // 判断是否大于最小购买金额
             if (productInfoDO.getMinBuyAmt() != null &&
                     decreaseQuotaDTO.getBuyAmount().compareTo(productInfoDO.getMinBuyAmt()) < 0) {

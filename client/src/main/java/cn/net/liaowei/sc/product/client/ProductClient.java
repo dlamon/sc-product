@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author liaowei
  */
-@FeignClient("product")
+@FeignClient(name="product"/*, fallback = ProductClient.ProductClientFallback.class*/)
 public interface ProductClient {
     /**
      * 通过产品编号列表获取产品信息列表
@@ -28,5 +28,22 @@ public interface ProductClient {
      * @param decreaseQuotaInputList 需要扣减额度的列表
      */
     @PostMapping("/product/decrease/quota")
-    void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList);
+    void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList) throws InterruptedException;
+
+
+    // 屏蔽降级处理逻辑， 降级处理应该在需要的时候才进行配置
+//    @Component
+//    static class ProductClientFallback implements ProductClient {
+//
+//        @Override
+//        public List<ProductInfoDTO> listByProductId(List<Integer> productIdList) {
+//            System.out.println("=============fallback listByProductId=============");
+//            return null;
+//        }
+//
+//        @Override
+//        public void decreaseQuota(List<DecreaseQuotaDTO> decreaseQuotaInputList) {
+//            System.out.println("=============fallback decreaseQuota=============");
+//        }
+//    }
 }
