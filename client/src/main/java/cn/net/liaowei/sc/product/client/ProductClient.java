@@ -3,6 +3,7 @@ package cn.net.liaowei.sc.product.client;
 import cn.net.liaowei.sc.product.common.DecreaseQuotaDTO;
 import cn.net.liaowei.sc.product.common.ProductInfoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * @author liaowei
  */
-@FeignClient(name="product"/*, fallback = ProductClient.ProductClientFallback.class*/)
+@FeignClient(name="product" , fallback = ProductClient.ProductClientFallback.class)
 public interface ProductClient {
     /**
      * 通过产品编号列表获取产品信息列表
@@ -32,18 +33,18 @@ public interface ProductClient {
 
 
     // 屏蔽降级处理逻辑， 降级处理应该在需要的时候才进行配置
-//    @Component
-//    static class ProductClientFallback implements ProductClient {
-//
-//        @Override
-//        public List<ProductInfoDTO> listByProductId(List<Integer> productIdList) {
-//            System.out.println("=============fallback listByProductId=============");
-//            return null;
-//        }
-//
-//        @Override
-//        public void decreaseQuota(List<DecreaseQuotaDTO> decreaseQuotaInputList) {
-//            System.out.println("=============fallback decreaseQuota=============");
-//        }
-//    }
+    @Component
+    static class ProductClientFallback implements ProductClient {
+
+        @Override
+        public List<ProductInfoDTO> listByProductId(List<Integer> productIdList) {
+            System.out.println("=============fallback listByProductId=============");
+            return null;
+        }
+
+        @Override
+        public void decreaseQuota(List<DecreaseQuotaDTO> decreaseQuotaInputList) {
+            System.out.println("=============fallback decreaseQuota=============");
+        }
+    }
 }

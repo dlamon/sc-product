@@ -75,7 +75,22 @@ public class ProductController implements ProductClient {
     @GetMapping("/list/ids")
     @Override
     public List<ProductInfoDTO> listByProductId(@RequestParam("id") List<Integer> productIdList) {
+        long before = System.currentTimeMillis();
+        // 测试hystrix配置超时时间
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        // 测试hystrix配置熔断
+        if (productIdList.size() == 3) {
+            throw new RuntimeException();
+        }
         Page<ProductInfoDO> productInfoDOPage = productService.listProductIn(productIdList, null);
+        long end = System.currentTimeMillis();
+        long times = end - before;
+        log.info("Span times: {}", times);
+
         return productInfoDOPage.stream().map(e -> {
             ProductInfoDTO output = new ProductInfoDTO();
             BeanUtils.copyProperties(e, output);
@@ -87,11 +102,6 @@ public class ProductController implements ProductClient {
     @PostMapping("/decrease/quota")
     @Override
     public void decreaseQuota(@RequestBody List<DecreaseQuotaDTO> decreaseQuotaInputList) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         productService.decreaseQuota(decreaseQuotaInputList);
     }
 }
