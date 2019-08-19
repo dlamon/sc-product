@@ -5,12 +5,12 @@ import cn.net.liaowei.sc.product.common.DecreaseQuotaDTO;
 import cn.net.liaowei.sc.product.common.ProductInfoDTO;
 import cn.net.liaowei.sc.product.domain.dos.ProductCategoryDO;
 import cn.net.liaowei.sc.product.domain.dos.ProductInfoDO;
-import cn.net.liaowei.sc.product.service.CategoryService;
-import cn.net.liaowei.sc.product.service.ProductService;
-import cn.net.liaowei.sc.product.util.ResultUtil;
 import cn.net.liaowei.sc.product.domain.vo.ProductInfoVO;
 import cn.net.liaowei.sc.product.domain.vo.ProductVO;
 import cn.net.liaowei.sc.product.domain.vo.ResultVO;
+import cn.net.liaowei.sc.product.service.CategoryService;
+import cn.net.liaowei.sc.product.service.ProductService;
+import cn.net.liaowei.sc.product.util.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -77,15 +77,20 @@ public class ProductController implements ProductClient {
     public List<ProductInfoDTO> listByProductId(@RequestParam("id") List<Integer> productIdList) {
         long before = System.currentTimeMillis();
         // 测试hystrix配置超时时间
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        // 测试hystrix配置熔断
-        if (productIdList.size() == 3) {
-            throw new RuntimeException();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        // 测试hystrix配置熔断
+        // 1、不进行熔断计数
+//        if (productIdList.size() == 3) {
+//            throw new SCException(ErrorEnum.PRODUCT_HYSTRIX_TEST_ERROR);
+//        }
+        // 2、进行熔断计数
+//        if (productIdList.size() == 3) {
+//            throw new RuntimeException();
+//        }
         Page<ProductInfoDO> productInfoDOPage = productService.listProductIn(productIdList, null);
         long end = System.currentTimeMillis();
         long times = end - before;

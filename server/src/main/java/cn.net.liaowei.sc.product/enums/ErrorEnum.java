@@ -20,7 +20,8 @@ public enum ErrorEnum {
     PRODUCT_SALE_EXCEEDED("PRD0004", "已超过产品售卖时间"),
     PRODUCT_LESS_MINI_AMT("PRD0005", "购买金额小于产品最小购买金额"),
     PRODUCT_GREATER_MAX_AMT("PRD0006", "购买金额大于产品最大购买金额"),
-    PRODUCT_REMAIN_NOT_ENOUGH("PRD0007", "产品剩余额度不足");
+    PRODUCT_REMAIN_NOT_ENOUGH("PRD0007", "产品剩余额度不足"),
+    PRODUCT_HYSTRIX_TEST_ERROR("PRD0008", "产品熔断测试错误");
 
     private String code;
     private String message;
