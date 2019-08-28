@@ -78,9 +78,6 @@ public class ProductController implements ProductClient {
     @Override
     public List<ProductInfoDTO> listByProductId(@RequestParam("id") List<Integer> productIdList) {
         long before = System.currentTimeMillis();
-        log.info("11111:{}", before);
-        log.info("222222:{}", before);
-        log.info("333333:{}", before);
         // 测试hystrix配置超时时间
         if (productIdList.size() == 3) {
             try {
